@@ -2,6 +2,7 @@ import React from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { toyService } from '../services/toy.service.js'
 import { useToyStore } from '../app/store.jsx'
+import { useUnsavedChanges } from '../hooks/useUnsavedChanges.js'
 
 export function ToyEdit() {
     const params = useParams()
@@ -9,22 +10,22 @@ export function ToyEdit() {
     const { saveToy } = useToyStore()
     const [toy, setToy] = React.useState(toyService.getEmptyToy())
     const [labels, setLabels] = React.useState(toyService.getLabels())
+    const [isDirty, setIsDirty] = React.useState(false)
+    const { confirmNavigate } = useUnsavedChanges(isDirty)
     const toyId = params.toyId
 
     React.useEffect(() => {
         if (!toyId) return
-        toyService.getById(toyId).then(t => {
-            if (!t) return
-            setToy(JSON.parse(JSON.stringify(t)))
-        })
+        toyService.getById(toyId).then(t => { if (t) setToy(JSON.parse(JSON.stringify(t))) })
     }, [toyId])
 
     function onSubmit(e) {
         e.preventDefault()
-        saveToy(toy).then(() => navigate('/toy'))
+        saveToy(toy).then(() => { setIsDirty(false); navigate('/toy') })
     }
 
     function onChange(field, val) {
+        setIsDirty(true)
         setToy(prev => ({ ...prev, [field]: val }))
     }
 
@@ -54,7 +55,7 @@ export function ToyEdit() {
                 </select>
                 <div className="row" style={{ marginTop: 12 }}>
                     <button className="btn primary" type="submit">Save</button>
-                    <button className="btn" type="button" onClick={() => navigate(-1)}>Cancel</button>
+                    <button className="btn" type="button" onClick={() => confirmNavigate('/toy')}>Cancel</button>
                 </div>
             </form>
         </section>

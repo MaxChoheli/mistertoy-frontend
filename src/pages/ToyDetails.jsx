@@ -1,10 +1,13 @@
 import React from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { toyService } from '../services/toy.service.js'
+import { NicePopup } from '../cmps/NicePopup.jsx'
+import { Chat } from '../cmps/Chat.jsx'
 
 export function ToyDetails() {
     const params = useParams()
     const [toy, setToy] = React.useState(null)
+    const [isChatOpen, setIsChatOpen] = React.useState(false)
 
     React.useEffect(() => {
         toyService.getById(params.toyId).then(setToy)
@@ -12,8 +15,7 @@ export function ToyDetails() {
 
     if (!toy) return <section className="container">Loading…</section>
 
-    const date = new Date(toy.createdAt)
-    const dateStr = date.toLocaleDateString()
+    const dateStr = new Date(toy.createdAt).toLocaleDateString()
 
     return (
         <section className="container">
@@ -29,8 +31,18 @@ export function ToyDetails() {
                 <div className="row" style={{ marginTop: 12 }}>
                     <Link className="btn" to="/toy">Back</Link>
                     <Link className="btn" to={`/toy/edit/${toy._id}`}>Edit</Link>
+                    <button className="btn" onClick={() => setIsChatOpen(true)} aria-label="Open chat">💬 Chat</button>
                 </div>
             </div>
+
+            <NicePopup
+                isOpen={isChatOpen}
+                onClose={() => setIsChatOpen(false)}
+                heading={`Chat about "${toy.name}"`}
+                footing={<button className="btn" onClick={() => setIsChatOpen(false)}>Close</button>}
+            >
+                <Chat />
+            </NicePopup>
         </section>
     )
 }

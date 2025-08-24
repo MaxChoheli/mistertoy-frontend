@@ -3,16 +3,21 @@ import { ToyIndex } from './pages/ToyIndex.jsx'
 import { ToyDetails } from './pages/ToyDetails.jsx'
 import { ToyEdit } from './pages/ToyEdit.jsx'
 import { ToyProvider } from './app/store.jsx'
+import { useOnlineStatus } from './hooks/useOnlineStatus.js'
 
 export default function App() {
+  const isOnline = useOnlineStatus()
   return (
     <ToyProvider>
       <header className="site-header">
         <div className="container header-inner">
           <NavLink to="/" className="brand">Mister Toy</NavLink>
-          <nav className="main-nav">
-            <NavLink to="/">Home</NavLink>
-          </nav>
+          <div className="right-side">
+            <nav className="main-nav">
+              <NavLink to="/">Home</NavLink>
+            </nav>
+            <div className="status"><span className={'dot ' + (isOnline ? 'on' : 'off')}></span><span className="status-text">{isOnline ? 'Online' : 'Offline'}</span></div>
+          </div>
         </div>
       </header>
       <main>
