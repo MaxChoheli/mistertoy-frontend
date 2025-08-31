@@ -3,6 +3,7 @@ import { ToyIndex } from './pages/ToyIndex.jsx'
 import { ToyDetails } from './pages/ToyDetails.jsx'
 import { ToyEdit } from './pages/ToyEdit.jsx'
 import { Dashboard } from './pages/Dashboard.jsx'
+import { About } from './pages/About.jsx'
 import { ToyProvider } from './app/store.jsx'
 import { useOnlineStatus } from './hooks/useOnlineStatus.js'
 
@@ -17,8 +18,12 @@ export default function App() {
             <nav className="main-nav">
               <NavLink to="/">Home</NavLink>
               <NavLink to="/dashboard">Dashboard</NavLink>
+              <NavLink to="/about">About</NavLink>
             </nav>
-            <div className="status"><span className={'dot ' + (isOnline ? 'on' : 'off')}></span><span className="status-text">{isOnline ? 'Online' : 'Offline'}</span></div>
+            <div className="status">
+              <span className={'dot ' + (isOnline ? 'on' : 'off')}></span>
+              <span className="status-text">{isOnline ? 'Online' : 'Offline'}</span>
+            </div>
           </div>
         </div>
       </header>
@@ -30,6 +35,7 @@ export default function App() {
           <Route path="/toy/edit" element={<ToyEdit />} />
           <Route path="/toy/edit/:toyId" element={<ToyEdit />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/about" element={<About />} />
         </Routes>
       </main>
     </ToyProvider>
