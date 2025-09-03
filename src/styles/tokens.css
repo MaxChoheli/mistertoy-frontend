@@ -1,0 +1,19 @@
+@layer tokens {
+    :root {
+        --bg: #f7f7fb;
+        --card: #ffffff;
+        --text: #0f172a;
+        --muted: #6b7280;
+        --brand: #111827;
+        --brand-acc: #2563eb;
+        --border: #e5e7eb;
+        --ok: #065f46;
+        --warn: #7c2d12;
+        --danger: #b91c1c;
+        --filters-bg: #eef2ff;
+        --product-bg: #fcfcff;
+        --bp-sm: 480px;
+        --bp-md: 768px;
+        --bp-lg: 1100px;
+    }
+}

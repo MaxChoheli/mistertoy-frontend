@@ -24,7 +24,10 @@ export function ToyIndex() {
         <>
             <section className="filters-bar">
                 <div className="container filters-inner">
-                    <h1 className="page-title">Toys</h1>
+                    <div className="page-heading">
+                        <h1 className="page-title">Toys</h1>
+                        <span className="result-count">{toys.length}</span>
+                    </div>
                     <div className="actions">
                         <Link className="btn primary" to="/toy/edit">Add Toy</Link>
                     </div>
@@ -34,7 +37,9 @@ export function ToyIndex() {
 
             <section className="store-section">
                 <div className="container">
-                    <ToyList toys={toys} onRemove={onRemove} />
+                    <div className="product-grid">
+                        <ToyList toys={toys} onRemove={onRemove} />
+                    </div>
                 </div>
             </section>
         </>

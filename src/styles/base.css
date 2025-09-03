@@ -1,0 +1,50 @@
+@layer base {
+
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box
+    }
+
+    html,
+    body,
+    #root {
+        height: 100%
+    }
+
+    body {
+        margin: 0;
+        font-family: Inter, system-ui, Arial, sans-serif;
+        color: var(--text);
+        background: var(--bg)
+    }
+
+    .container {
+        width: min(var(--bp-lg), 92vw);
+        margin: 0 auto
+    }
+
+    .row {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        flex-wrap: wrap
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 16px
+    }
+
+    .page-title {
+        margin: 0;
+        font-size: 28px
+    }
+
+    @media (max-width: 900px) {
+        .page-title {
+            font-size: 24px
+        }
+    }
+}
