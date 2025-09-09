@@ -180,5 +180,179 @@
             justify-items: start
         }
     }
-}
 
+    .main-nav .logout-btn {
+        color: #e5e7eb;
+        text-decoration: none;
+        margin-left: 14px;
+        padding: 6px 8px;
+        border-radius: 8px;
+        background: none;
+        border: none;
+        font: inherit;
+        cursor: pointer;
+    }
+
+    .main-nav .logout-btn:hover {
+        background: rgba(255, 255, 255, .12);
+    }
+
+    .login-page {
+        max-width: 400px;
+        margin: 40px auto;
+        padding: 24px;
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, .08);
+        display: grid;
+        gap: 16px;
+    }
+
+    .login-page h2 {
+        margin: 0;
+        font-size: 1.5rem;
+        color: #f9fafb;
+        text-align: center;
+    }
+
+    .login-page form {
+        display: grid;
+        gap: 12px;
+    }
+
+    .login-page input {
+        padding: 10px 12px;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        font-size: 1rem;
+    }
+
+    .login-page .btn-group {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+    }
+
+    .login-page button {
+        flex: 1;
+        padding: 10px 14px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: 500;
+        background: var(--brand);
+        color: #fff;
+        transition: background 0.2s;
+    }
+
+    .login-page button:hover {
+        background: color-mix(in srgb, var(--brand) 90%, white);
+    }
+
+    .login-page .error {
+        color: #ef4444;
+        font-size: 0.9rem;
+        text-align: center;
+    }
+
+    .modal-backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.6);
+        display: grid;
+        place-items: center;
+        z-index: 100;
+    }
+
+    .modal {
+        background: var(--card);
+        border-radius: 12px;
+        padding: 20px;
+        width: min(400px, 90vw);
+        display: grid;
+        gap: 14px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    }
+
+    .modal h3 {
+        margin: 0;
+        font-size: 1.3rem;
+        text-align: center;
+        color: #f9fafb;
+    }
+
+    .modal form {
+        display: grid;
+        gap: 12px;
+    }
+
+    .modal input {
+        padding: 10px 12px;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        font-size: 1rem;
+    }
+
+    .modal .btn-group {
+        display: flex;
+        gap: 10px;
+    }
+
+    .modal button {
+        flex: 1;
+        padding: 10px 14px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: 500;
+        background: var(--brand);
+        color: #fff;
+    }
+
+    .modal button:hover {
+        background: color-mix(in srgb, var(--brand) 90%, white);
+    }
+
+    .user-controls {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-left: 14px;
+    }
+
+    .user-controls .greet {
+        font-size: 0.95rem;
+        color: #e5e7eb;
+    }
+
+    .user-controls .logout-btn {
+        color: #e5e7eb;
+        background: none;
+        border: none;
+        padding: 6px 8px;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+
+    .user-controls .logout-btn:hover {
+        background: rgba(255, 255, 255, 0.12);
+    }
+
+    .user-controls {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-left: 14px;
+    }
+
+    .user-controls .greet {
+        font-size: 0.95rem;
+        font-weight: 500;
+        color: #f9fafb;
+    }
+
+
+}
