@@ -31,21 +31,26 @@ export default function App() {
     <ToyProvider>
       <header className="site-header">
         <div className="container header-inner">
+          <nav className="main-nav left-side">
+            <NavLink to="/">Home</NavLink>
+            <NavLink to="/dashboard">Dashboard</NavLink>
+            <NavLink to="/about">About</NavLink>
+          </nav>
+
           <NavLink to="/" className="brand">Mister Toy</NavLink>
+
           <div className="right-side">
-            <nav className="main-nav">
-              <NavLink to="/">Home</NavLink>
-              <NavLink to="/dashboard">Dashboard</NavLink>
-              <NavLink to="/about">About</NavLink>
-              {user ? (
-                <span className="user-controls">
-                  <span className="greet">Hello, {user.fullname}</span>
-                  <button className="logout-btn" onClick={onLogout}>Logout</button>
+            {user ? (
+              <span className="user-controls">
+                <span className="greet">
+                  Hello, {user.fullname}
+                  {user.isAdmin && <span className="admin-label"> (Admin)</span>}
                 </span>
-              ) : (
-                <NavLink to="/login">Login</NavLink>
-              )}
-            </nav>
+                <button className="logout-btn" onClick={onLogout}>Logout</button>
+              </span>
+            ) : (
+              <NavLink to="/login">Login</NavLink>
+            )}
             <div className="status">
               <span className={'dot ' + (isOnline ? 'on' : 'off')}></span>
               <span className="status-text">{isOnline ? 'Online' : 'Offline'}</span>
