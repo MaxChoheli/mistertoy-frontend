@@ -1,20 +1,21 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { toyService } from '../services/toy.service.js'
+import { userService } from '../services/user.service.js'
 import { ToyList } from '../cmps/ToyList.jsx'
 import { ToyFilter } from '../cmps/ToyFilter.jsx'
 
 export function ToyIndex() {
     const [toys, setToys] = React.useState([])
     const [filterBy, setFilterBy] = React.useState({ txt: '', inStock: undefined, labels: [], sortBy: 'name', sortDir: 1 })
+    const user = userService.getLoggedinUser()
+    const isAdmin = !!user?.isAdmin
 
     function load() {
         toyService.query(filterBy).then(setToys)
     }
 
-    React.useEffect(() => {
-        load()
-    }, [filterBy])
+    React.useEffect(() => { load() }, [filterBy])
 
     function onRemove(id) {
         toyService.remove(id).then(load)
@@ -29,7 +30,7 @@ export function ToyIndex() {
                         <span className="result-count">{toys.length}</span>
                     </div>
                     <div className="actions">
-                        <Link className="btn primary" to="/toy/edit">Add Toy</Link>
+                        {isAdmin && <Link className="btn primary" to="/toy/edit">Add Toy</Link>}
                     </div>
                     <ToyFilter value={filterBy} onChange={setFilterBy} />
                 </div>
@@ -38,7 +39,7 @@ export function ToyIndex() {
             <section className="store-section">
                 <div className="container">
                     <div className="product-grid">
-                        <ToyList toys={toys} onRemove={onRemove} />
+                        <ToyList toys={toys} onRemove={isAdmin ? onRemove : null} isAdmin={isAdmin} />
                     </div>
                 </div>
             </section>

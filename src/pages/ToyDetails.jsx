@@ -3,15 +3,29 @@ import { useParams, Link } from 'react-router-dom'
 import { toyService } from '../services/toy.service.js'
 import { NicePopup } from '../cmps/NicePopup.jsx'
 import { Chat } from '../cmps/Chat.jsx'
+import { userService } from '../services/user.service.js'
+import { httpService } from '../services/http.service.js'
 
 export function ToyDetails() {
     const params = useParams()
     const [toy, setToy] = React.useState(null)
     const [isChatOpen, setIsChatOpen] = React.useState(false)
+    const [msgTxt, setMsgTxt] = React.useState('')
+    const user = userService.getLoggedinUser()
+    const isAdmin = !!user?.isAdmin
 
     React.useEffect(() => {
         toyService.getById(params.toyId).then(setToy)
     }, [params.toyId])
+
+    async function onAddMsg(ev) {
+        ev.preventDefault()
+        if (!msgTxt.trim()) return
+        await httpService.post(`toy/${params.toyId}/msg`, { txt: msgTxt.trim() })
+        setMsgTxt('')
+        const fresh = await toyService.getById(params.toyId)
+        setToy(fresh)
+    }
 
     if (!toy) return <section className="container">Loading…</section>
 
@@ -28,10 +42,38 @@ export function ToyDetails() {
                 <div className="badges" style={{ marginTop: 8 }}>
                     {toy.labels.map(l => <span key={l} className="badge">{l}</span>)}
                 </div>
+
                 <div className="row" style={{ marginTop: 12 }}>
                     <Link className="btn" to="/toy">Back</Link>
-                    <Link className="btn" to={`/toy/edit/${toy._id}`}>Edit</Link>
+                </div>
+
+                {user && (
+                    <form onSubmit={onAddMsg} style={{ marginTop: 12 }}>
+                        <input
+                            value={msgTxt}
+                            onChange={e => setMsgTxt(e.target.value)}
+                            placeholder="Write a message"
+                            required
+                        />
+                        <button className="btn" style={{ marginLeft: 8 }}>Add Comment</button>
+                    </form>
+                )}
+
+                <div className="row" style={{ marginTop: 12 }}>
+                    {isAdmin && <Link className="btn" to={`/toy/edit/${toy._id}`}>Edit</Link>}
                     <button className="btn" onClick={() => setIsChatOpen(true)} aria-label="Open chat">💬 Chat</button>
+                </div>
+
+                <div style={{ marginTop: 16 }}>
+                    <h3>Messages</h3>
+                    <ul>
+                        {(toy.msgs || []).map(m => (
+                            <li key={m.id}>
+                                <strong>{m.fullname || m.by || 'User'}</strong>: {m.txt}
+                            </li>
+                        ))}
+                    </ul>
+                    {!user && <p>Login to add a message.</p>}
                 </div>
             </div>
 
