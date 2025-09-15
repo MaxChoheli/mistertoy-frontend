@@ -9,6 +9,9 @@ import { ToyProvider } from './app/store.jsx'
 import { useOnlineStatus } from './hooks/useOnlineStatus.js'
 import { Login } from './pages/Login.jsx'
 import { userService } from './services/user.service.js'
+import { ReviewExplore } from './pages/ReviewExplore.jsx'
+import { UserDetails } from './pages/UserDetails.jsx'
+
 
 export default function App() {
   const isOnline = useOnlineStatus()
@@ -68,6 +71,8 @@ export default function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/about" element={<About />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/user/:userId" element={<UserDetails />} />
+          <Route path="/reviews" element={<ReviewExplore />} />
         </Routes>
       </main>
     </ToyProvider>
