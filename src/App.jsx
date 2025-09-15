@@ -9,9 +9,8 @@ import { ToyProvider } from './app/store.jsx'
 import { useOnlineStatus } from './hooks/useOnlineStatus.js'
 import { Login } from './pages/Login.jsx'
 import { userService } from './services/user.service.js'
-import { ReviewExplore } from './pages/ReviewExplore.jsx'
 import { UserDetails } from './pages/UserDetails.jsx'
-
+import { ReviewExplore } from './pages/ReviewExplore.jsx'
 
 export default function App() {
   const isOnline = useOnlineStatus()
@@ -37,6 +36,7 @@ export default function App() {
           <nav className="main-nav left-side">
             <NavLink to="/">Home</NavLink>
             <NavLink to="/dashboard">Dashboard</NavLink>
+            <NavLink to="/reviews">Reviews</NavLink>
             <NavLink to="/about">About</NavLink>
           </nav>
 
@@ -46,7 +46,7 @@ export default function App() {
             {user ? (
               <span className="user-controls">
                 <span className="greet">
-                  Hello, {user.fullname}
+                  <NavLink to={`/user/${user._id}`} className="user-link">Hello, {user.fullname}</NavLink>
                   {user.isAdmin && <span className="admin-label"> (Admin)</span>}
                 </span>
                 <button className="logout-btn" onClick={onLogout}>Logout</button>
