@@ -8,7 +8,7 @@ import { About } from './pages/About.jsx'
 import { ToyProvider } from './app/store.jsx'
 import { useOnlineStatus } from './hooks/useOnlineStatus.js'
 import { Login } from './pages/Login.jsx'
-import { userService } from './services/user.service.js'
+import { onUserChange, userService } from './services/user.service.js'
 import { UserDetails } from './pages/UserDetails.jsx'
 import { ReviewExplore } from './pages/ReviewExplore.jsx'
 
@@ -18,9 +18,7 @@ export default function App() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    const handleStorage = () => setUser(userService.getLoggedinUser())
-    window.addEventListener('storage', handleStorage)
-    return () => window.removeEventListener('storage', handleStorage)
+    onUserChange(nextUser => setUser(nextUser))
   }, [])
 
   async function onLogout() {

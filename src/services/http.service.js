@@ -1,28 +1,24 @@
 import axios from 'axios'
 
-const BASE_URL = import.meta.env.VITE_API_BASE || '/api/'
+const BASE_URL =
+    (import.meta.env.VITE_API_BASE || import.meta.env.VITE_API_URL || '').replace(/\/+$/, '') || '/api'
 
-axios.defaults.withCredentials = true
+const http = axios.create({
+    baseURL: BASE_URL.endsWith('/api') ? BASE_URL + '/' : BASE_URL + '/api/',
+    withCredentials: true
+})
 
 export const httpService = {
-    get(endpoint, params) {
-        return ajax(endpoint, 'GET', params)
-    },
-    post(endpoint, data) {
-        return ajax(endpoint, 'POST', data)
-    },
-    put(endpoint, data) {
-        return ajax(endpoint, 'PUT', data)
-    },
-    delete(endpoint, data) {
-        return ajax(endpoint, 'DELETE', data)
-    },
+    get(endpoint, params) { return ajax(endpoint, 'GET', params) },
+    post(endpoint, data) { return ajax(endpoint, 'POST', data) },
+    put(endpoint, data) { return ajax(endpoint, 'PUT', data) },
+    delete(endpoint, data) { return ajax(endpoint, 'DELETE', data) },
 }
 
 async function ajax(endpoint, method = 'GET', data = null) {
     try {
-        const res = await axios({
-            url: `${BASE_URL}${endpoint}`,
+        const res = await http.request({
+            url: endpoint,
             method,
             data,
             params: method === 'GET' ? data : null,
