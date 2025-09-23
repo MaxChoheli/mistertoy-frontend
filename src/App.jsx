@@ -50,7 +50,9 @@ export default function App() {
                 <button className="logout-btn" onClick={onLogout}>Logout</button>
               </span>
             ) : (
-              <NavLink to="/login">Login</NavLink>
+              <span className="user-controls">
+                <NavLink to="/login" className="login-btn">Login</NavLink>
+              </span>
             )}
             <div className="status">
               <span className={'dot ' + (isOnline ? 'on' : 'off')}></span>

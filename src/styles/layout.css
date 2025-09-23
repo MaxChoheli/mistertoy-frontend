@@ -347,7 +347,16 @@
     }
 
     .user-controls .logout-btn {
-        color: #e5e7eb;
+        color: white;
+        background: none;
+        border: none;
+        padding: 6px 8px;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+
+    .user-controls .login-btn {
+        color: white;
         background: none;
         border: none;
         padding: 6px 8px;
