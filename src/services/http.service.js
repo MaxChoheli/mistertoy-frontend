@@ -1,11 +1,16 @@
 import axios from 'axios'
 
-const BASE_URL =
-    (import.meta.env.VITE_API_BASE || import.meta.env.VITE_API_URL || '').replace(/\/+$/, '') || '/api'
+const rawBase = import.meta.env.DEV
+    ? '/api'
+    : (import.meta.env.VITE_API_BASE || import.meta.env.VITE_API_URL || '')
+
+const trimmed = rawBase.replace(/\/+$/, '')
+const baseURL = trimmed.endsWith('/api') ? trimmed + '/' : trimmed + '/api/'
 
 const http = axios.create({
-    baseURL: BASE_URL.endsWith('/api') ? BASE_URL + '/' : BASE_URL + '/api/',
-    withCredentials: true
+    baseURL,
+    withCredentials: true,
+    headers: { 'Content-Type': 'application/json' }
 })
 
 export const httpService = {
@@ -15,13 +20,13 @@ export const httpService = {
     delete(endpoint, data) { return ajax(endpoint, 'DELETE', data) },
 }
 
-async function ajax(endpoint, method = 'GET', data = null) {
+async function ajax(endpoint, method, data) {
     try {
         const res = await http.request({
             url: endpoint,
             method,
             data,
-            params: method === 'GET' ? data : null,
+            params: method === 'GET' ? data : null
         })
         return res.data
     } catch (err) {
