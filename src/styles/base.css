@@ -47,4 +47,96 @@
             font-size: 24px
         }
     }
+
+    .container {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        backdrop-filter: saturate(140%) blur(6px);
+    }
+
+    .header-inner {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .main-nav,
+    .right-side {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        white-space: nowrap;
+    }
+
+    .badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    @media (max-width: 768px) {
+        .container {
+            padding: 0 12px;
+        }
+
+        .header-inner {
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .main-nav {
+            order: 3;
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            gap: 10px;
+            padding-bottom: 4px;
+        }
+
+        .brand {
+            margin-left: 0;
+        }
+
+        .right-side {
+            margin-left: auto;
+            gap: 8px;
+        }
+
+        .row {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .row .btn {
+            flex: 1 1 160px;
+        }
+
+        .card {
+            padding: 12px;
+        }
+    }
+
+    @media (max-width: 420px) {
+        .main-nav {
+            gap: 8px;
+        }
+
+        .btn {
+            width: 100%;
+        }
+    }
+
 }

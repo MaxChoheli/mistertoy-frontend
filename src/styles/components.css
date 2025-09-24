@@ -197,4 +197,22 @@
             border: 2px solid #f472b6
         }
     }
+
+    .NicePopup,
+    .nice-popup {
+        width: min(92vw, 560px) !important;
+        max-height: 92vh;
+    }
+
+    .chat-room .msgs {
+        max-height: 50vh;
+        overflow: auto;
+        padding-right: 6px;
+    }
+
+    .btn {
+        padding: 10px 14px;
+        border-radius: 8px;
+    }
+
 }
